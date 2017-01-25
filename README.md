@@ -1,7 +1,7 @@
 # jQuery.blogRSS (1.0)
 
-* jQuery.blogRSS : v. 1.0
-* Copyright (c) 2013 Zach Reed [Blue Tide Productions, LLC].
+* jQuery.blogRSS : v. 1.1.0
+* Copyright (c) 2017 Zach Reed [Blue Tide Productions, LLC].
 * License: GPL v3
 * http://www.iamzachreed.com
 
@@ -63,6 +63,10 @@ Here is an example initialize:
 *   **`blogDescription`** - *optional* - Allows you to overwrite the RSS feed cescription.
 
 ## Changelog
+
+*   **jQuery.blogRSS : v. 1.1.0** (Jan 2017)
+
+    Update to YQL because https://developers.google.com/feed/v1/jsondevguide is depreciated.
 
 *   **jQuery.blogRSS : v. 1.0** (Oct 2013)
 
