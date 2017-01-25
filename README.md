@@ -7,7 +7,7 @@
 
 ## Demos
 
-You can find a [Storenvy jQuery.blogRSS demo here](http://bluetidetest.storenvy.com/).
+You can find a [Storenvy jQuery.blogRSS demo here](http://bluetidetest.storenvy.com/blog).
 
 ## Usage
 
