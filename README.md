@@ -1,4 +1,4 @@
-# jQuery.blogRSS (1.0)
+# jQuery.blogRSS (1.1.0)
 
 * jQuery.blogRSS : v. 1.1.0
 * Copyright (c) 2017 Zach Reed [Blue Tide Productions, LLC].
