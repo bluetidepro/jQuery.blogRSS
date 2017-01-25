@@ -1,5 +1,5 @@
 /* ===========================================================
- * jQuery.blogRSS v1.0
+ * jQuery.blogRSS v1.1.0
  * ===========================================================
  * Copyright 2013 Zach Reed.
  * http://www.iamzachreed.com
@@ -56,16 +56,17 @@
 		} else {
 			$(settings.ulContainerID).addClass('blog-entries');
 			$.ajax({
-				url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(settings.feedURL),
+				url: document.location.protocol + '//query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D\'' + encodeURIComponent(settings.feedURL) + '\'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
 				dataType: 'json',
 				success: function(data) {
-					(settings.blogName ? settings.blogName : settings.blogName=capitaliseFirstLetter(data.responseData.feed.title));
-					$(settings.ulContainerID).wrap('<div class="blog-entries-container"></div>').before('<h1>'+settings.blogName+'</h1><h2>'+(settings.blogDescription ? settings.blogDescription : data.responseData.feed.description)+'</h2>');
-					$.each(data.responseData.feed.entries, function(key, value){
+					var data = data.query.results.rss.channel;
+					(settings.blogName ? settings.blogName : settings.blogName=capitaliseFirstLetter(data.title));
+					$(settings.ulContainerID).wrap('<div class="blog-entries-container"></div>').before('<h1>'+settings.blogName+'</h1><h2>'+(settings.blogDescription ? settings.blogDescription : data.description)+'</h2>');
+					$.each(data.item, function(key, value){
 						categories = '';
-						if (value.categories) {
-							var total = $(value.categories).length;
-							$.each(value.categories, function(i, item) {
+						if (value.category) {
+							var total = $(value.category).length;
+							$.each(value.category, function(i, item) {
 							    categories += item + ', ';
 							    if (i === total - 1) {
 							    	categories += item;
@@ -73,8 +74,8 @@
 							});
 						};
 						entryHTML = '<header><h3><a href="'+value.link+'" target="_blank">'+value.title+'</a></h3></header>';
-						entryHTML += '<footer>Posted <time title="'+value.publishedDate+'" datetime="'+value.publishedDate+'">'+jQuery.timeago(value.publishedDate)+'</time>'+(categories ? ' in <span class="entry-categories">' + categories + '</span>' : '')+'</footer>';
-						entryHTML += '<p>'+value.content+'</p>';
+						entryHTML += '<footer>Posted <time title="'+value.pubDate+'" datetime="'+value.pubDate+'">'+jQuery.timeago(value.pubDate)+'</time>'+(categories ? ' in <span class="entry-categories">' + categories + '</span>' : '')+'</footer>';
+						entryHTML += '<p>'+value.description+'</p>';
 						$('<li class="blog-entry"><article>'+entryHTML+'</article></li>').appendTo(settings.ulContainerID);
 					});
 					$('<li class="view-all-entries"><a href="'+settings.blogURL+'" title="'+settings.blogName+'">View full blog &raquo;</a></li>').appendTo(settings.ulContainerID);
